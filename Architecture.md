@@ -1,18 +1,5 @@
 # Architecture
 
-Lets see if I can do more vertical slices this time.  More independent projects.
-
-- _Domain_ — Each domain entity
-- _Application_ — Aggregate root corresponding to each use case
-- _Persistence_ — Each database table
-- _Infrastructure_ — Each functional area of the operating system (file operations, etc.) and/or external resources
-- _Presentation_ — Aggregate root corresponding to each screen or web page
-- _Cross-cutting_ (Common) — Each cross-cutting concern (Logging, Security, etc.)
-
-#### Refinance:
-
-- [A Template for Clean Domain-Driven Design Architecture](https://medium.com/software-alchemy/a-template-for-clean-domain-driven-design-architecture-e386ad235f32)
- 
 ### Projects
 
 - MT.BlazorUi
@@ -22,6 +9,16 @@ Lets see if I can do more vertical slices this time.  More independent projects.
 - Hilres.StockDb.Loader.Yahoo
 - Test.<i>project</i>
 
+Lets see if I can do more vertical slices this time.  More independent projects.
+
+- _Domain_ — Each domain entity
+- _Application_ — Aggregate root corresponding to each use case
+- _Persistence_ — Each database table
+- _Infrastructure_ — Each functional area of the operating system (file operations, etc.) and/or external resources
+- _Presentation_ — Aggregate root corresponding to each screen or web page
+- _Cross-cutting_ (Common) — Each cross-cutting concern (Logging, Security, etc.)
+- From [A Template for Clean Domain-Driven Design Architecture](https://medium.com/software-alchemy/a-template-for-clean-domain-driven-design-architecture-e386ad235f32)
+ 
 ### Using
 
 - [Visual Studio v16.9](https://visualstudio.microsoft.com/vs/preview)
@@ -29,7 +26,7 @@ Lets see if I can do more vertical slices this time.  More independent projects.
 
 ### NuGet
 
-- [CsvHelper](https://www.nuget.org/packages/CsvHelper)
+- <s>[CsvHelper](https://www.nuget.org/packages/CsvHelper)</s>
 - [MediatR.Extensions.Microsoft.DependencyInjection](https://www.nuget.org/packages/MediatR.Extensions.Microsoft.DependencyInjection)
 - [Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
 - [Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite)
@@ -57,6 +54,10 @@ Lets see if I can do more vertical slices this time.  More independent projects.
 
 - [CodeMaid](https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid)
 - [Visual Studio Spell Checker (VS2017 and Later)](https://marketplace.visualstudio.com/items?itemName=EWoodruff.VisualStudioSpellCheckerVS2017andLater)
+
+### CSS Framework
+
+- [Chota](https://github.com/jenil/chota)
 
 ### NasdaqTrader refinance:
 - [Symbol Lookup](http://www.nasdaqtrader.com/Trader.aspx?id=symbollookup)
