@@ -9,6 +9,7 @@ namespace MT.BlazorUi
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using MT.BlazorUi.Application;
 
     /// <summary>
     /// Startup class.
@@ -36,6 +37,7 @@ namespace MT.BlazorUi
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddApplication();
         }
 
         /// <summary>

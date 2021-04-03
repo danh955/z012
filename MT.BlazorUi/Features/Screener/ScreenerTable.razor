@@ -1,0 +1,28 @@
+﻿@if (this.ScreenerResult != null && this.ScreenerResult.Headings != null && this.ScreenerResult.Rows != null)
+{
+<table>
+    <thead>
+        <tr>
+            @foreach (var headItem in this.ScreenerResult.Headings)
+            {
+            <th>@headItem.ToShortDateString()</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rowItem in this.ScreenerResult.Rows)
+        {
+        <tr>
+            @foreach (var percentage in rowItem.Percentages)
+            {
+            <td>@($"{percentage * 100:#0.0%}")</td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>
+}
+else
+{
+<div>No rows to display</div>
+}
