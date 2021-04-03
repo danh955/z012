@@ -3,7 +3,7 @@
 ### Projects
 
 - MT.BlazorUi
-- MT.BlazorUi.Appliction
+- MT.BlazorUi.Application
 - Hilres.Y2kDate
 - Hilres.StockDb.Model
 - Hilres.StockDb.Loader.Yahoo
