@@ -5,7 +5,7 @@
 - MT.BlazorUi
 - MT.BlazorUi.Application
 - Hilres.Y2kDate
-- Hilres.StockDb.Model
+- Hilres.StockDb.Repository
 - Hilres.StockDb.Loader.Yahoo
 - Test.<i>project</i>
 

@@ -12,11 +12,11 @@ namespace MT.BlazorUi.Application
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Add application project to the service collection.
+        /// Add BlazorUi application project to the service collection.
         /// </summary>
         /// <param name="service">IServiceCollection.</param>
         /// <returns>Updated IServiceCollection.</returns>
-        public static IServiceCollection AddApplication(this IServiceCollection service)
+        public static IServiceCollection AddBlazorUiApplication(this IServiceCollection service)
         {
             service.AddMediatR(typeof(ServiceCollectionExtensions));
             return service;

@@ -37,7 +37,7 @@ namespace MT.BlazorUi
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddApplication();
+            services.AddBlazorUiApplication();
         }
 
         /// <summary>
