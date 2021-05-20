@@ -1,6 +1,6 @@
 ﻿# Entities
 
-The database entities are managed in the Domain.Entities name space.
+The database entities are managed in the StockDb.Repository name space.
 
 ### Code first entity framework
 

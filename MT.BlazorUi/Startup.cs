@@ -4,6 +4,7 @@
 
 namespace MT.BlazorUi
 {
+    using Hilres.StockDb.Loader;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -38,6 +39,7 @@ namespace MT.BlazorUi
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddBlazorUiApplication();
+            services.AddStockDbLoaderService();
         }
 
         /// <summary>
