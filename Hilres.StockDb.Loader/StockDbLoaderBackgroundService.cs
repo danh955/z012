@@ -5,6 +5,8 @@ namespace Hilres.StockDb.Loader
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Threading.Tasks.Dataflow;
+    using Hilres.StockDb.Loader.Dataflow;
     using Microsoft.Extensions.Hosting;
 
     /// <summary>
@@ -12,7 +14,6 @@ namespace Hilres.StockDb.Loader
     /// </summary>
     public class StockDbLoaderBackgroundService : BackgroundService
     {
-        private readonly StockDbLoaderBackgroundStatus status;
         private bool isRunning = false;
 
         /// <summary>
@@ -21,22 +22,27 @@ namespace Hilres.StockDb.Loader
         /// <param name="status">StockDbLoaderBackgroundStatus.</param>
         public StockDbLoaderBackgroundService(StockDbLoaderBackgroundStatus status)
         {
-            this.status = status;
+            this.Status = status;
         }
+
+        /// <summary>
+        /// Gets background status.
+        /// </summary>
+        internal StockDbLoaderBackgroundStatus Status { get; init; }
 
         /// <inheritdoc/>
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
-            this.status.OnPropertyChangedAsync += this.Refresh;
+            this.Status.OnPropertyChangedAsync += this.Refresh;
             await base.StartAsync(cancellationToken);
         }
 
         /// <inheritdoc/>
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
-            if (this.status != null)
+            if (this.Status != null)
             {
-                this.status.OnPropertyChangedAsync -= this.Refresh;
+                this.Status.OnPropertyChangedAsync -= this.Refresh;
             }
 
             await base.StopAsync(cancellationToken);
@@ -45,16 +51,19 @@ namespace Hilres.StockDb.Loader
         /// <inheritdoc/>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            DataflowService dataflow = new(stoppingToken);
+            await dataflow.ExampleActionBlock1.Action.SendAsync(new() { Id = 1 });
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 if (this.isRunning)
                 {
-                    this.status.State = StockDbLoaderState.Running;
-                    this.status.Count++;
+                    this.Status.State = StockDbLoaderState.Running;
+                    this.Status.Count++;
                 }
                 else
                 {
-                    this.status.State = StockDbLoaderState.Stopped;
+                    this.Status.State = StockDbLoaderState.Stopped;
                 }
 
                 await Task.Delay(1000, stoppingToken);
@@ -63,18 +72,18 @@ namespace Hilres.StockDb.Loader
 
         private async Task Refresh(string propertyName, object oldValue)
         {
-            if (propertyName == nameof(this.status.Mode))
+            if (propertyName == nameof(this.Status.Mode))
             {
-                switch (this.status.Mode)
+                switch (this.Status.Mode)
                 {
                     case StockDbLoaderMode.Run:
-                        this.status.State = StockDbLoaderState.Starting;
+                        this.Status.State = StockDbLoaderState.Starting;
                         this.isRunning = true;
                         await Task.Delay(0);
                         break;
 
                     case StockDbLoaderMode.Stop:
-                        this.status.State = StockDbLoaderState.Stopping;
+                        this.Status.State = StockDbLoaderState.Stopping;
                         this.isRunning = false;
                         break;
                 }
