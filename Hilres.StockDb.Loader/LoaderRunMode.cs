@@ -1,4 +1,4 @@
-﻿// <copyright file="StockDbLoaderMode.cs" company="None">
+﻿// <copyright file="LoaderRunMode.cs" company="None">
 // Free and open source code.
 // </copyright>
 
@@ -7,7 +7,7 @@ namespace Hilres.StockDb.Loader
     /// <summary>
     /// Stock database loader mode.
     /// </summary>
-    public enum StockDbLoaderMode
+    public enum LoaderRunMode
     {
         /// <summary>
         /// Run. The background task is running or to start..

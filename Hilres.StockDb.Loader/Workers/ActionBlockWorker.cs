@@ -1,7 +1,7 @@
 ﻿// <copyright file="ActionBlockWorker.cs" company="None">
 // Free and open source code.
 // </copyright>
-namespace Hilres.StockDb.Loader.Dataflow
+namespace Hilres.StockDb.Loader.Workers
 {
     using System.Threading;
     using System.Threading.Tasks;

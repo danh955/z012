@@ -1,4 +1,4 @@
-﻿// <copyright file="StockDbLoaderBackgroundService.cs" company="None">
+﻿// <copyright file="LoaderBackgroundService.cs" company="None">
 // Free and open source code.
 // </copyright>
 namespace Hilres.StockDb.Loader
@@ -6,21 +6,21 @@ namespace Hilres.StockDb.Loader
     using System.Threading;
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
-    using Hilres.StockDb.Loader.Dataflow;
+    using Hilres.StockDb.Loader.Workers;
     using Microsoft.Extensions.Hosting;
 
     /// <summary>
     /// Stock database loader background service class.
     /// </summary>
-    public class StockDbLoaderBackgroundService : BackgroundService
+    internal class LoaderBackgroundService : BackgroundService
     {
         private bool isRunning = false;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StockDbLoaderBackgroundService"/> class.
+        /// Initializes a new instance of the <see cref="LoaderBackgroundService"/> class.
         /// </summary>
         /// <param name="status">StockDbLoaderBackgroundStatus.</param>
-        public StockDbLoaderBackgroundService(StockDbLoaderBackgroundStatus status)
+        public LoaderBackgroundService(LoaderBackgroundStatus status)
         {
             this.Status = status;
         }
@@ -28,7 +28,7 @@ namespace Hilres.StockDb.Loader
         /// <summary>
         /// Gets background status.
         /// </summary>
-        internal StockDbLoaderBackgroundStatus Status { get; init; }
+        internal LoaderBackgroundStatus Status { get; init; }
 
         /// <inheritdoc/>
         public override async Task StartAsync(CancellationToken cancellationToken)
@@ -58,12 +58,12 @@ namespace Hilres.StockDb.Loader
             {
                 if (this.isRunning)
                 {
-                    this.Status.State = StockDbLoaderState.Running;
+                    this.Status.State = LoaderRunState.Running;
                     this.Status.Count++;
                 }
                 else
                 {
-                    this.Status.State = StockDbLoaderState.Stopped;
+                    this.Status.State = LoaderRunState.Stopped;
                 }
 
                 await Task.Delay(1000, stoppingToken);
@@ -76,14 +76,14 @@ namespace Hilres.StockDb.Loader
             {
                 switch (this.Status.Mode)
                 {
-                    case StockDbLoaderMode.Run:
-                        this.Status.State = StockDbLoaderState.Starting;
+                    case LoaderRunMode.Run:
+                        this.Status.State = LoaderRunState.Starting;
                         this.isRunning = true;
                         await Task.Delay(0);
                         break;
 
-                    case StockDbLoaderMode.Stop:
-                        this.Status.State = StockDbLoaderState.Stopping;
+                    case LoaderRunMode.Stop:
+                        this.Status.State = LoaderRunState.Stopping;
                         this.isRunning = false;
                         break;
                 }

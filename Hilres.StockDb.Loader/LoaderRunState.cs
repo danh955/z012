@@ -1,4 +1,4 @@
-﻿// <copyright file="StockDbLoaderState.cs" company="None">
+﻿// <copyright file="LoaderRunState.cs" company="None">
 // Free and open source code.
 // </copyright>
 
@@ -7,7 +7,7 @@ namespace Hilres.StockDb.Loader
     /// <summary>
     /// State of the stock database loader.
     /// </summary>
-    public enum StockDbLoaderState
+    public enum LoaderRunState
     {
         /// <summary>
         /// Starting.

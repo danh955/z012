@@ -17,8 +17,8 @@ namespace Hilres.StockDb.Loader
         /// <returns>Updated IServiceCollection.</returns>
         public static IServiceCollection AddStockDbLoaderService(this IServiceCollection service)
         {
-            service.AddSingleton<StockDbLoaderBackgroundStatus>();
-            service.AddHostedService<StockDbLoaderBackgroundService>();
+            service.AddSingleton<LoaderBackgroundStatus>();
+            service.AddHostedService<LoaderBackgroundService>();
             return service;
         }
     }

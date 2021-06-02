@@ -1,4 +1,4 @@
-﻿// <copyright file="StockDbLoaderBackgroundStatus.cs" company="None">
+﻿// <copyright file="LoaderBackgroundStatus.cs" company="None">
 // Free and open source code.
 // </copyright>
 namespace Hilres.StockDb.Loader
@@ -12,11 +12,11 @@ namespace Hilres.StockDb.Loader
     /// Stock database loader background status class.
     /// Show the status of what the background worker is doing.
     /// </summary>
-    public class StockDbLoaderBackgroundStatus
+    public class LoaderBackgroundStatus
     {
         private int count = 0;
-        private StockDbLoaderMode mode = StockDbLoaderMode.Stop;
-        private StockDbLoaderState state = StockDbLoaderState.Stopped;
+        private LoaderRunMode mode = LoaderRunMode.Stop;
+        private LoaderRunState state = LoaderRunState.Stopped;
 
         /// <summary>
         /// Property changed event.
@@ -35,13 +35,13 @@ namespace Hilres.StockDb.Loader
         /// <summary>
         /// Gets a value indicating whether the loader is running.
         /// </summary>
-        public bool IsRunning => this.state == StockDbLoaderState.Running || this.state == StockDbLoaderState.Stopping;
+        public bool IsRunning => this.state == LoaderRunState.Running || this.state == LoaderRunState.Stopping;
 
         /// <summary>
         /// Gets or sets the mode of the loader background state.
         /// Change this to set the background service into a new state.
         /// </summary>
-        public StockDbLoaderMode Mode
+        public LoaderRunMode Mode
         {
             get => this.mode;
             set => this.SetPropertyField(ref this.mode, value, nameof(this.Mode));
@@ -50,7 +50,7 @@ namespace Hilres.StockDb.Loader
         /// <summary>
         /// Gets the state of the stock database loader.
         /// </summary>
-        public StockDbLoaderState State
+        public LoaderRunState State
         {
             get => this.state;
             internal set => this.SetPropertyField(ref this.state, value, nameof(this.State));

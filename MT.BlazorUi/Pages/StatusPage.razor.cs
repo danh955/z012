@@ -19,7 +19,7 @@ namespace MT.BlazorUi.Pages
         /// Gets or sets stock database loader service.
         /// </summary>
         [Inject]
-        protected StockDbLoaderBackgroundStatus LoaderStatus { get; set; }
+        protected LoaderBackgroundStatus LoaderStatus { get; set; }
 
         /// <inheritdoc/>
         public void Dispose()

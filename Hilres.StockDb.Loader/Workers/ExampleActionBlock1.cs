@@ -1,22 +1,23 @@
-﻿// <copyright file="ExampleActionBlock2.cs" company="None">
+﻿// <copyright file="ExampleActionBlock1.cs" company="None">
 // Free and open source code.
 // </copyright>
-namespace Hilres.StockDb.Loader.Dataflow
+namespace Hilres.StockDb.Loader.Workers
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Threading.Tasks.Dataflow;
 
     /// <summary>
     /// Example action block class.
     /// </summary>
-    public class ExampleActionBlock2 : ActionBlockWorker<ExampleActionBlock2.Input>
+    public class ExampleActionBlock1 : ActionBlockWorker<ExampleActionBlock1.Input>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExampleActionBlock2"/> class.
+        /// Initializes a new instance of the <see cref="ExampleActionBlock1"/> class.
         /// </summary>
         /// <param name="service">DataflowService.</param>
         /// <param name="cancellationToken">CancellationToken.</param>
-        public ExampleActionBlock2(DataflowService service, CancellationToken cancellationToken)
+        public ExampleActionBlock1(DataflowService service, CancellationToken cancellationToken)
             : base(service, cancellationToken)
         {
         }
@@ -26,12 +27,12 @@ namespace Hilres.StockDb.Loader.Dataflow
         {
             if (!this.CancellationToken.IsCancellationRequested)
             {
-                await Task.Delay(0, this.CancellationToken);
+                await this.Service.ExampleActionBlock2.Action.SendAsync(new() { Id = data.Id, Name = "something" });
             }
         }
 
         /// <summary>
-        /// Input class for ExampleActionBlock2 action block.
+        /// Input class for ExampleActionBlock1 action block.
         /// </summary>
         public class Input
         {
@@ -39,11 +40,6 @@ namespace Hilres.StockDb.Loader.Dataflow
             /// Gets or sets iD.
             /// </summary>
             public int Id { get; set; }
-
-            /// <summary>
-            /// Gets or sets name of something.
-            /// </summary>
-            public string Name { get; set; }
         }
     }
 }

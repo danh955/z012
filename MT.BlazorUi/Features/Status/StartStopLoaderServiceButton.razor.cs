@@ -17,10 +17,10 @@ namespace MT.BlazorUi.Features.Status
         /// Gets or sets stock database loader service.
         /// </summary>
         [Inject]
-        protected StockDbLoaderBackgroundStatus LoaderStatus { get; set; }
+        protected LoaderBackgroundStatus LoaderStatus { get; set; }
 
-        private bool StartStopDisabled => this.LoaderStatus.State == StockDbLoaderState.Starting
-                                       || this.LoaderStatus.State == StockDbLoaderState.Stopping;
+        private bool StartStopDisabled => this.LoaderStatus.State == LoaderRunState.Starting
+                                       || this.LoaderStatus.State == LoaderRunState.Stopping;
 
         private string StartStopText => this.LoaderStatus.IsRunning ? "STOP" : "START";
 
@@ -53,11 +53,11 @@ namespace MT.BlazorUi.Features.Status
         {
             if (this.LoaderStatus.IsRunning)
             {
-                this.LoaderStatus.Mode = StockDbLoaderMode.Stop;
+                this.LoaderStatus.Mode = LoaderRunMode.Stop;
             }
             else
             {
-                this.LoaderStatus.Mode = StockDbLoaderMode.Run;
+                this.LoaderStatus.Mode = LoaderRunMode.Run;
             }
         }
     }
