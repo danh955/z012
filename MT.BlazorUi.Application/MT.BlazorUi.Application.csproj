@@ -8,6 +8,10 @@
     <DocumentationFile>bin\debug\MT.BlazorUi.Application.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\debug\MT.BlazorUi.Application.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="stylecop.json" />
   </ItemGroup>

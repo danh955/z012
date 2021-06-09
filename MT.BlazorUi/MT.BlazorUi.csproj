@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hilres.StockDb.Loader\Hilres.StockDb.Loader.csproj" />
+    <ProjectReference Include="..\Hilres.Stock.Updater\Hilres.Stock.Updater.csproj" />
     <ProjectReference Include="..\MT.BlazorUi.Application\MT.BlazorUi.Application.csproj" />
   </ItemGroup>
 

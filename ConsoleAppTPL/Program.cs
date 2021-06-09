@@ -4,7 +4,9 @@
 namespace ConsoleAppTPL
 {
     using System.Threading.Tasks;
-    using Hilres.StockDb.Repository;
+    using Hilres.Stock.DataSource.Yahoo;
+    using Hilres.Stock.Repository;
+    using Hilres.Stock.Updater;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +25,8 @@ namespace ConsoleAppTPL
                 {
                     var connectionString = hostContext.Configuration.GetConnectionString("StockDatabase");
                     services.AddPooledDbContextFactory<StockDbContext>(options => options.UseSqlServer(connectionString));
+                    services.AddHilresStockDataSourceYahoo();
+                    services.AddHilresStockUpdater();
 
                     services.AddHostedService<ConsoleHostedService>();
                     services.AddSingleton<IWeatherService, WeatherService>();

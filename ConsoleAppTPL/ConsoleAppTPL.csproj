@@ -27,8 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hilres.StockDb.Loader\Hilres.StockDb.Loader.csproj" />
-    <ProjectReference Include="..\Hilres.StockDb.Repository\Hilres.StockDb.Repository.csproj" />
+    <ProjectReference Include="..\Hilres.Stock.DataSource.Yahoo\Hilres.Stock.DataSource.Yahoo.csproj" />
+    <ProjectReference Include="..\Hilres.Stock.Repository\Hilres.Stock.Repository.csproj" />
+    <ProjectReference Include="..\Hilres.Stock.Updater\Hilres.Stock.Updater.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,7 +5,7 @@ namespace MT.BlazorUi.Features.Status
 {
     using System;
     using System.Threading.Tasks;
-    using Hilres.StockDb.Loader;
+    using Hilres.Stock.Updater;
     using Microsoft.AspNetCore.Components;
 
     /// <summary>

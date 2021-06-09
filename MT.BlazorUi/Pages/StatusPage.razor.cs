@@ -7,7 +7,7 @@ namespace MT.BlazorUi.Pages
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Hilres.StockDb.Loader;
+    using Hilres.Stock.Updater;
     using Microsoft.AspNetCore.Components;
 
     /// <summary>

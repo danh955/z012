@@ -7,8 +7,8 @@ namespace ConsoleAppTPL
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Hilres.StockDb.Loader.Workers;
-    using Hilres.StockDb.Repository;
+    using Hilres.Stock.Repository;
+    using Hilres.Stock.Updater;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
@@ -19,9 +19,10 @@ namespace ConsoleAppTPL
     public class ConsoleHostedService : IHostedService
     {
         private readonly IHostApplicationLifetime appLifetime;
-        private readonly IDbContextFactory<StockDbContext> contextFactory;
+        private readonly IDbContextFactory<StockDbContext> stockDbContextFactory;
         private readonly ILogger logger;
         private readonly IWeatherService weatherService;
+        private readonly UpdateStockDataFromDataSource updateFinancialDataService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleHostedService"/> class.
@@ -29,17 +30,20 @@ namespace ConsoleAppTPL
         /// <param name="logger">Logger.</param>
         /// <param name="appLifetime">Application lifetime.</param>
         /// <param name="weatherService">Weather service.</param>
-        /// <param name="contextFactory">IDbContextFactory for StockDbContext.</param>
+        /// <param name="stockDbContextFactory">IDbContextFactory for StockDbContext.</param>
+        /// <param name="updateFinancialDataService">UpdateFinancialDataService.</param>
         public ConsoleHostedService(
             ILogger<ConsoleHostedService> logger,
             IHostApplicationLifetime appLifetime,
             IWeatherService weatherService,
-            IDbContextFactory<StockDbContext> contextFactory)
+            IDbContextFactory<StockDbContext> stockDbContextFactory,
+            UpdateStockDataFromDataSource updateFinancialDataService)
         {
             this.logger = logger;
             this.appLifetime = appLifetime;
             this.weatherService = weatherService;
-            this.contextFactory = contextFactory;
+            this.stockDbContextFactory = stockDbContextFactory;
+            this.updateFinancialDataService = updateFinancialDataService;
         }
 
         /// <summary>
@@ -53,8 +57,8 @@ namespace ConsoleAppTPL
             {
                 await this.EnsureDatabaseIsCreated(cancellationToken);
 
-                var worker = new UpdateDbWorker();
-                await worker.UpdateDatabase();
+                // Update the database with new stock data.
+                await this.updateFinancialDataService.DoUpdate();
 
                 IReadOnlyList<int> temperatures = await this.weatherService.GetFiveDayTemperaturesAsync();
                 for (int i = 0; i < temperatures.Count; i++)
@@ -86,7 +90,7 @@ namespace ConsoleAppTPL
 
         private async Task EnsureDatabaseIsCreated(CancellationToken cancellationToken)
         {
-            using var context = this.contextFactory.CreateDbContext();
+            using var context = this.stockDbContextFactory.CreateDbContext();
             await context.Database.EnsureCreatedAsync(cancellationToken);
             //// await context.Database.MigrateAsync(cancellationToken);
         }

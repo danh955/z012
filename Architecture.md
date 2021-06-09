@@ -5,8 +5,8 @@
 - MT.BlazorUi
 - MT.BlazorUi.Application
 - Hilres.Y2kDate
-- Hilres.StockDb.Repository
-- Hilres.StockDb.Loader.Yahoo
+- Hilres.Stock.Repository
+- Hilres.Stock.DataSource.Yahoo
 - Test.<i>project</i>
 
 Lets see if I can do more vertical slices this time.  More independent projects.
