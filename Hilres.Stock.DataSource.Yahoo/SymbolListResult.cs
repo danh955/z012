@@ -17,7 +17,7 @@ namespace Hilres.Stock.DataSource.Yahoo
         /// </summary>
         /// <param name="symbols">List of symbols.</param>
         /// <param name="fileCreationTime">Symbol file creation time.</param>
-        public SymbolListResult(IEnumerable<SymbolItem> symbols, DateTime fileCreationTime)
+        internal SymbolListResult(IEnumerable<SymbolItem> symbols, DateTime fileCreationTime)
         {
             this.Symbols = symbols;
             this.FileCreationTime = fileCreationTime;
@@ -26,12 +26,12 @@ namespace Hilres.Stock.DataSource.Yahoo
         /// <summary>
         /// Gets NASDAQ symbols file creation time.
         /// </summary>
-        public DateTime FileCreationTime { get; private set; }
+        public DateTime FileCreationTime { get; init; }
 
         /// <summary>
         /// Gets list of items.
         /// </summary>
-        public IEnumerable<ISymbolListItem> Symbols { get; private set; }
+        public IEnumerable<ISymbolListItem> Symbols { get; init; }
 
         /// <summary>
         /// Symbol Item.
@@ -54,17 +54,23 @@ namespace Hilres.Stock.DataSource.Yahoo
             /// <summary>
             /// Gets the identifier for the security.
             /// </summary>
-            public string Symbol { get; private set; }
+            public string Symbol { get; init; }
 
             /// <summary>
             /// Gets company issuing the security.
             /// </summary>
-            public string SecurityName { get; private set; }
+            public string SecurityName { get; init; }
 
             /// <summary>
             /// Gets the listing stock exchange or market of the security.
             /// </summary>
-            public string Exchange { get; private set; }
+            public string Exchange { get; init; }
+
+            /// <inheritdoc/>
+            public override string ToString()
+            {
+                return $"{this.Symbol}, {this.Exchange}, {this.SecurityName}";
+            }
         }
     }
 }

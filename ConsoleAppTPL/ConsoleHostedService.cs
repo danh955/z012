@@ -58,7 +58,7 @@ namespace ConsoleAppTPL
                 await this.EnsureDatabaseIsCreated(cancellationToken);
 
                 // Update the database with new stock data.
-                await this.updateFinancialDataService.DoUpdate();
+                await this.updateFinancialDataService.DoUpdate(cancellationToken);
 
                 IReadOnlyList<int> temperatures = await this.weatherService.GetFiveDayTemperaturesAsync();
                 for (int i = 0; i < temperatures.Count; i++)

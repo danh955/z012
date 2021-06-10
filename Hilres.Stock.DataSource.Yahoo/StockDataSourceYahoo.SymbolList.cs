@@ -1,4 +1,4 @@
-﻿// <copyright file="YahooFinancialDataService.SymbolList.cs" company="None">
+﻿// <copyright file="StockDataSourceYahoo.SymbolList.cs" company="None">
 // Free and open source code.
 // </copyright>
 #pragma warning disable SA1118 // Parameter should not span multiple lines
@@ -25,6 +25,7 @@ namespace Hilres.Stock.DataSource.Yahoo
         private const string FileCreationTimeText = @"File Creation Time:";
         private const string NasdaqListedUri = @"http://www.nasdaqtrader.com/dynamic/SymDir/nasdaqlisted.txt";
         private const string OtherListedUri = @"http://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt";
+        private readonly IEnumerable<string> includeExchangeCodes = new List<string> { "N" };
 
         /// <summary>
         /// Get all the symbols.
@@ -65,16 +66,22 @@ namespace Hilres.Stock.DataSource.Yahoo
                        return null;
                    }
 
+                   string exchange = csv[2].ToUpper();
+                   if (!this.includeExchangeCodes.Contains(exchange))
+                   {
+                       return null;
+                   }
+
                    return new(
                        symbol: csv[7].Trim(),
                        securityName: csv[1].Trim(),
-                       exchange: csv[2].ToUpper() switch
+                       exchange: exchange switch
                        {
                            "A" => "NYSE MKT",
-                           "N" => "New York Stock Exchange(NYSE)",
+                           "N" => "NYSE",  // New York Stock Exchange
                            "P" => "NYSE ARCA",
-                           "Z" => "BATS Global Markets(BATS)",
-                           "V" => "Investors' Exchange, LLC (IEXG)",
+                           "Z" => "BATS",  // BATS Global Markets
+                           "V" => "IEXG",  // Investors Exchange, LLC
                            _ => csv[2],
                        });
                });

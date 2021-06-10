@@ -26,6 +26,11 @@ namespace Hilres.Stock.Repository
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the listing stock exchange or market of the security.
+        /// </summary>
+        public string Exchange { get; set; }
+
+        /// <summary>
         /// Gets or sets list of stock prices.
         /// </summary>
         public List<StockPriceEntity> StockPrices { get; set; }

@@ -1,4 +1,4 @@
-﻿// <copyright file="YahooFinancialDataService.cs" company="None">
+﻿// <copyright file="StockDataSourceYahoo.cs" company="None">
 // Free and open source code.
 // </copyright>
 namespace Hilres.Stock.DataSource.Yahoo
