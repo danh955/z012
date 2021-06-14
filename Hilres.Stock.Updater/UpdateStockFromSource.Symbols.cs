@@ -1,4 +1,4 @@
-﻿// <copyright file="UpdateStockDataFromDataSource.cs" company="None">
+﻿// <copyright file="UpdateStockFromSource.Symbols.cs" company="None">
 // Free and open source code.
 // </copyright>
 namespace Hilres.Stock.Updater
@@ -8,47 +8,21 @@ namespace Hilres.Stock.Updater
     using System.Threading;
     using System.Threading.Tasks;
     using Hilres.Stock.Repository;
-    using Hilres.Stock.Updater.Abstraction;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>
-    /// Update database worker class.
-    /// This is the class that manages loading or updating any symbol or prices data.
+    /// Update data for symbols partial class.
     /// </summary>
-    public class UpdateStockDataFromDataSource
+    public partial class UpdateStockFromSource
     {
-        private readonly IDbContextFactory<StockDbContext> dbContextFactory;
-        private readonly IStockDataSource stockDataSource;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateStockDataFromDataSource"/> class.
-        /// </summary>
-        /// <param name="stockDataSource">IStockDataSource.</param>
-        /// <param name="dbContextFactory">Database context factory for the stock.</param>
-        public UpdateStockDataFromDataSource(IStockDataSource stockDataSource, IDbContextFactory<StockDbContext> dbContextFactory)
-        {
-            this.stockDataSource = stockDataSource;
-            this.dbContextFactory = dbContextFactory;
-        }
-
-        /// <summary>
-        /// Do the update to the database.
-        /// </summary>
-        /// <param name="cancellationToken">CancellationToken.</param>
-        /// <returns>Task.</returns>
-        public async Task DoUpdate(CancellationToken cancellationToken)
-        {
-            await this.UpdateSymbols(cancellationToken);
-        }
-
         /// <summary>
         /// Update the symbols in the database.
         /// </summary>
         /// <param name="cancellationToken">CancellationToken.</param>
         /// <returns>Task.</returns>
-        private async Task UpdateSymbols(CancellationToken cancellationToken)
+        private async Task UpdateDataSymbols(CancellationToken cancellationToken)
         {
-            var db = this.dbContextFactory.CreateDbContext();
+            using var db = this.dbContextFactory.CreateDbContext();
 
             // Get both at the same time.
             var resultDataTask = this.stockDataSource.GetSymbleList(cancellationToken);

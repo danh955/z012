@@ -17,7 +17,7 @@ namespace Hilres.Stock.Updater
         /// <returns>Updated IServiceCollection.</returns>
         public static IServiceCollection AddHilresStockUpdater(this IServiceCollection service)
         {
-            service.AddTransient<UpdateStockDataFromDataSource>();
+            service.AddTransient<UpdateStockFromSource>();
             service.AddSingleton<LoaderBackgroundStatus>();
             service.AddHostedService<LoaderBackgroundService>();
             return service;

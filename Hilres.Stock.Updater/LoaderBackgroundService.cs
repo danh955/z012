@@ -6,7 +6,6 @@ namespace Hilres.Stock.Updater
     using System.Threading;
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
-    using Hilres.Stock.Updater.Workers;
     using Microsoft.Extensions.Hosting;
 
     /// <summary>
@@ -51,9 +50,6 @@ namespace Hilres.Stock.Updater
         /// <inheritdoc/>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            DataflowService dataflow = new(stoppingToken);
-            await dataflow.ExampleActionBlock1.Action.SendAsync(new() { Id = 1 });
-
             while (!stoppingToken.IsCancellationRequested)
             {
                 if (this.isRunning)

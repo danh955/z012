@@ -22,7 +22,7 @@ namespace ConsoleAppTPL
         private readonly IDbContextFactory<StockDbContext> stockDbContextFactory;
         private readonly ILogger logger;
         private readonly IWeatherService weatherService;
-        private readonly UpdateStockDataFromDataSource updateFinancialDataService;
+        private readonly UpdateStockFromSource updateStock;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleHostedService"/> class.
@@ -31,19 +31,19 @@ namespace ConsoleAppTPL
         /// <param name="appLifetime">Application lifetime.</param>
         /// <param name="weatherService">Weather service.</param>
         /// <param name="stockDbContextFactory">IDbContextFactory for StockDbContext.</param>
-        /// <param name="updateFinancialDataService">UpdateFinancialDataService.</param>
+        /// <param name="updateStock">UpdateStockDataFromDataSource.</param>
         public ConsoleHostedService(
             ILogger<ConsoleHostedService> logger,
             IHostApplicationLifetime appLifetime,
             IWeatherService weatherService,
             IDbContextFactory<StockDbContext> stockDbContextFactory,
-            UpdateStockDataFromDataSource updateFinancialDataService)
+            UpdateStockFromSource updateStock)
         {
             this.logger = logger;
             this.appLifetime = appLifetime;
             this.weatherService = weatherService;
             this.stockDbContextFactory = stockDbContextFactory;
-            this.updateFinancialDataService = updateFinancialDataService;
+            this.updateStock = updateStock;
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace ConsoleAppTPL
                 await this.EnsureDatabaseIsCreated(cancellationToken);
 
                 // Update the database with new stock data.
-                await this.updateFinancialDataService.DoUpdate(cancellationToken);
+                await this.updateStock.DoUpdate(cancellationToken);
 
                 IReadOnlyList<int> temperatures = await this.weatherService.GetFiveDayTemperaturesAsync();
                 for (int i = 0; i < temperatures.Count; i++)
