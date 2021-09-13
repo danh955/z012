@@ -39,7 +39,7 @@ namespace MT.BlazorUi
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddBlazorUiApplication();
-            services.AddHilresStockUpdater();
+            ////services.AddHilresStockUpdater();
         }
 
         /// <summary>
